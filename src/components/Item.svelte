@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { getLocalStorage, setLocalStorage } from '../storage_methods';
 
   export let item;
   let srcTrash = './assets/trash-solid.svg';

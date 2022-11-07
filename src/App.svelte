@@ -2,9 +2,11 @@
   import { onMount } from 'svelte';
   import InputItem from './components/InputItem.svelte';
   import ListItem from './components/ListItem.svelte';
+  import Modal from './components/Modal.svelte';
   import { getLocalStorage, setLocalStorage } from './storage_methods';
 
   let itens;
+  let showModal = false;
 
   onMount(() => {
     itens = getLocalStorage();
@@ -25,10 +27,14 @@
 
   const edit = (itemId) => {
     console.log('edit', itemId.detail.text);
+    showModal = true;
   };
 </script>
 
 <main class="container">
+  {#if showModal}
+    <Modal />
+  {/if}
   <h1>A Svelte Challenge</h1>
   <InputItem on:add-item={handleAddItem} />
   <ListItem {itens} on:edit={edit} on:remove={remove} />
