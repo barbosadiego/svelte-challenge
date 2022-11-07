@@ -4,23 +4,34 @@
   import ListItem from './components/ListItem.svelte';
   import { getLocalStorage, setLocalStorage } from './storage_methods';
 
-  let items;
+  let itens;
 
   onMount(() => {
-    // console.log('app mount');
-    items = getLocalStorage();
+    itens = getLocalStorage();
   });
 
   const handleAddItem = (e) => {
-    items = [e.detail, ...items];
-    setLocalStorage(items);
+    itens = [e.detail, ...itens];
+    setLocalStorage(itens);
+  };
+
+  const remove = (id) => {
+    const itemId = id.detail;
+    const itensStoraged = getLocalStorage();
+    const newItens = itensStoraged.filter((item) => item.id !== itemId);
+    itens = newItens;
+    setLocalStorage(newItens);
+  };
+
+  const edit = (itemId) => {
+    console.log('edit', itemId.detail.text);
   };
 </script>
 
 <main class="container">
   <h1>A Svelte Challenge</h1>
   <InputItem on:add-item={handleAddItem} />
-  <ListItem {items} />
+  <ListItem {itens} on:edit={edit} on:remove={remove} />
 </main>
 
 <style>
@@ -29,6 +40,8 @@
     margin: 0 auto;
     padding: 0 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
   h1 {

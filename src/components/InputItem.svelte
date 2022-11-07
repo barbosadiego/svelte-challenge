@@ -1,19 +1,22 @@
 <script>
-  import { setLocalStorage, getLocalStorage } from '../storage_methods';
   import { createEventDispatcher } from 'svelte';
 
   let text = '';
-  const min = 1;
+  const min = 5;
   const dispatch = createEventDispatcher();
 
   const handleSubmit = () => {
     if (text.length >= min) {
       const date = new Date();
+
       const newItem = {
         id: date.getTime(), // id bult from a date
         text,
       };
+
       dispatch('add-item', newItem);
+
+      text = '';
     } else {
       alert(`Item must be at last ${min} characters`);
     }
