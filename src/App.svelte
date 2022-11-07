@@ -1,12 +1,26 @@
 <script>
+  import { onMount } from 'svelte';
   import InputItem from './components/InputItem.svelte';
   import ListItem from './components/ListItem.svelte';
+  import { getLocalStorage, setLocalStorage } from './storage_methods';
+
+  let items;
+
+  onMount(() => {
+    // console.log('app mount');
+    items = getLocalStorage();
+  });
+
+  const handleAddItem = (e) => {
+    items = [e.detail, ...items];
+    setLocalStorage(items);
+  };
 </script>
 
 <main class="container">
   <h1>A Svelte Challenge</h1>
-  <InputItem />
-  <ListItem />
+  <InputItem on:add-item={handleAddItem} />
+  <ListItem {items} />
 </main>
 
 <style>
