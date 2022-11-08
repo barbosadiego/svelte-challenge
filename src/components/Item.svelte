@@ -6,8 +6,8 @@
   let srcEdit = './assets/pen-to-square-solid.svg';
   const dispatch = createEventDispatcher();
 
-  function edit(itemId) {
-    dispatch('edit', itemId);
+  function edit(item) {
+    dispatch('edit', item);
   }
 
   function remove(itemId) {

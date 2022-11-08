@@ -7,6 +7,7 @@
 
   let itens;
   let showModal = false;
+  let editItem;
 
   onMount(() => {
     itens = getLocalStorage();
@@ -25,18 +26,42 @@
     setLocalStorage(newItens);
   };
 
-  const edit = (itemId) => {
-    console.log('edit', itemId.detail.text);
+  const edit = (item) => {
     showModal = true;
+    editItem = item.detail;
+  };
+
+  const handleEdit = (itemId) => {
+    const newText = itemId.detail.text;
+    const id = itemId.detail.id;
+    const itensStoraged = getLocalStorage();
+    const changedList = itensStoraged.map((item) => {
+      if (item.id === itemId.detail.id) {
+        return { id: id, text: newText };
+      } else {
+        return item;
+      }
+    });
+
+    setLocalStorage(changedList);
+    showModal = false;
+    itens = itens;
   };
 </script>
 
 <main class="container">
   {#if showModal}
-    <Modal />
+    <Modal
+      {editItem}
+      on:close-modal={() => (showModal = false)}
+      on:handle-edit={handleEdit}
+    />
   {/if}
+
   <h1>A Svelte Challenge</h1>
+
   <InputItem on:add-item={handleAddItem} />
+
   <ListItem {itens} on:edit={edit} on:remove={remove} />
 </main>
 
