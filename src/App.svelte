@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
   import InputItem from './components/InputItem.svelte';
   import ListItem from './components/ListItem.svelte';
   import Modal from './components/Modal.svelte';
@@ -51,11 +52,13 @@
 
 <main class="container">
   {#if showModal}
-    <Modal
-      {editItem}
-      on:close-modal={() => (showModal = false)}
-      on:handle-edit={handleEdit}
-    />
+    <div transition:fade={{ duration: 100 }}>
+      <Modal
+        {editItem}
+        on:close-modal={() => (showModal = false)}
+        on:handle-edit={handleEdit}
+      />
+    </div>
   {/if}
 
   <h1>A Svelte Challenge</h1>
