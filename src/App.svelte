@@ -3,6 +3,7 @@
   import { fade } from 'svelte/transition';
   import InputItem from './components/InputItem.svelte';
   import ListItem from './components/ListItem.svelte';
+  import Loading from './components/Loading.svelte';
   import Modal from './components/Modal.svelte';
   import { getLocalStorage, setLocalStorage } from './storage_methods';
 
@@ -52,6 +53,7 @@
 
 <main class="container">
   {#if showModal}
+    <Loading />
     <div transition:fade={{ duration: 100 }}>
       <Modal
         {editItem}
