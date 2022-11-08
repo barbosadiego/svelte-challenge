@@ -36,7 +36,7 @@
     const id = itemId.detail.id;
     const itensStoraged = getLocalStorage();
     const changedList = itensStoraged.map((item) => {
-      if (item.id === itemId.detail.id) {
+      if (item.id === id) {
         return { id: id, text: newText };
       } else {
         return item;

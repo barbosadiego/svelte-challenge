@@ -12,6 +12,11 @@
     const changedItem = editItem;
     dispatch('handle-edit', changedItem);
   };
+
+  const time = (time) => {
+    const date = new Date(time);
+    return date.toString();
+  };
 </script>
 
 <div class="modal">
@@ -22,7 +27,12 @@
       <input type="text" bind:value={editItem.text} />
       <button on:click={handleEdit}>Done</button>
     </div>
-    <small class="id">Item id: {editItem.id}</small>
+    <div class="detail">
+      <small class="id">Item id: <strong>{editItem.id}</strong></small>
+      <small class="date"
+        >Created at: <strong>{time(editItem.id)}</strong></small
+      >
+    </div>
   </div>
 </div>
 
@@ -62,8 +72,10 @@
     flex: 1;
   }
 
-  .id {
-    align-self: start;
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
   }
 
   .close {
